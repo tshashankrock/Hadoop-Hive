@@ -1,0 +1,9 @@
+Shivam,tripathi,Gonda,Male,9.6,JIIT
+Rahul,tripathi,lucknow,Male,8.6,IIT
+Shubham,dwivedi,Delhi,Male,7.3,JIIT
+Aviral,Singh,Noida,Male,7.6,JIIT
+Ankit,tripathi,Delhi,Male,8.6,JIIT
+Nikita,tripathi,Noida,Male,7.6,NIIT
+Sahil,Mayar,Punjab,Male,8.6,KIIT
+Chirag,Rajput,Punjab,Male,7.6,NIIT
+Avinash,dwivedi,Lucknow,Male,7.3,JIIT

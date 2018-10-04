@@ -1,0 +1,24 @@
+add jar /home/shashank/apache-hive-2.3.2-bin/hcatalog/share/hcatalog/hive-hcatalog-core-2.3.2.jar;
+create external table if not exists tweets (text string,
+entities STRUCT <
+hashtags:ARRAY<STRUCT<text:STRING>>>,
+`user` STRUCT<
+screen_name:STRING,
+friends_count:INT,
+followers_count:INT,
+statuses_count:INT,
+verified:BOOLEAN,
+utc_offset:INT,
+time_zone:STRING>
+)
+ROW FORMAT SERDE 'org.apache.hive.hcatalog.data.JsonSerDe'
+location '/user/hive/warehouse/twitter.db'
+
+load data local inpath '/home/shashank/Desktop/Hadoopprac/Twitteranalysis/tweetsfile.json' overwrite into table tweets;
+
+query:
+SELECT DISTINCT `user`.screen_name as name,`user`.followers_count as count from tweets
+where size(entities.hashtags)>0
+order by count desc;
+
+
