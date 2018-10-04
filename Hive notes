@@ -1,0 +1,66 @@
+note for which field u want partition don't add that filed in the table; so there i have created the two table student and studentbycgpa
+in studentbycgpa i don't have cgpa column 
+Studenttable:
+>create table if not exists student(firstname STRING,lastname STRING,City STRING,gender STRING,cgpa FLOAT,college STRING)
+row format delimited
+fields terminated by ',';
+load data local inpath '/home/shashank/Desktop/Hadoopprac/rough.txt' overwrite into table student;
+
+studentcgpa table:
+>create table if not exists studentbycgpa(firstname STRING,lastname STRING,City STRING,gender STRING,college STRING)
+partitioned by (cgpa STRING)
+row format delimited fields terminated by ','
+stored as textfile;
+
+>set hive.exec.dynamic.partition.mode=nonstrict;
+>set hive.exec.dynamic.partition.mode=True;
+
+>from student st insert overwrite table studentbycgpa partition(cgpa)
+select st.firstname, st.lastname,st.city,st.gender,st.college,st.cgpa distribute by cgpa;
+
+hadoop fs -ls /user/hive/warehouse/t2.db
+hadoop fs -ls /user/hive/warehouse/t2.db/studentbycgpa
+hadoop fs -ls /user/hive/warehouse/t2.db/studentbycgpa/cgpa=7.3
+hadoop fs -cat /user/hive/warehouse/t2.db/studentbycgpa/cgpa=7.3/000000_0
+Avinash,dwivedi,Lucknow,Male,JIIT
+Shubham,dwivedi,Delhi,Male,JIIT
+
+To show the partition:
+show partition <tablename>
+
+Dopping the partition:
+alter table <tablename> drop if exist partition(cgpa=7.3);
+
+#Detail information of table:
+Describe Formatted <table name>
+
+NOTE:
+We cannot drop the database until table are not drop we can drop database directly if database is empty else if we want to drop the database then we have to use command :
+Drop database <databasename> CASCADE;
+
+To increase the partition size use:
+SET hive.exec.max.dynamic.partitions=1000;
+SET hive.exec.max.dynamic.partitions.pernode=500;
+
+
+In ordering  we have to use one reducer since all the record should be at one place to perfom ordering of the data it is the serious problem as it can  take much time for large dataset so to use multiple reducer we can do following thing:
+set mapreduce.job.reduces=3
+but when u run the query the no. of reducer will be one only since it do the ordering of the global variable so the solution is to use sortby operation it uses multiple reducer so set the reducer 3 and use sortby operation.
+
+#In order to get the all the record for true logical ordering we want all the record from the same symbol to go to same reducer and end up in one file use distribute by in it pass the column as the key for the reducer.
+Insert overwrite [local] directory '/home/shashank/difja'
+Row format delimited fields terminated by ','
+select ymd,symbol,price_close from stocks
+where year(ymd) = '2003'
+Distribute by symbol  
+sort by symbol ASC,price_close DESC  
+
+``````````````````````````````````````````````````````````````````Bucket````````````````````````````````````````````````````````````````````````
+ create table if not exists studentbucket(
+    > firstname string, lastname string,city string,gender string,cgpa float,
+    > college string)
+    > partitioned by (first_name string, newcity string)
+    > clustered by (cgpa) into 5 buckets
+    > row format delimited fields terminated by ',';
+
+

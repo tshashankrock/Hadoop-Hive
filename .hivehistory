@@ -1,0 +1,500 @@
+from student where college rlike 'J*'
+sort by cgpa asc;
+set mapreduce.job.reduce = 3
+;
+select cgpa,firstname,college
+from student where college rlike 'J*'
+sort by cgpa asc;
+set mapreduce.job.reduces = 3;
+select cgpa,firstname,college
+from student where college rlike 'J*'
+sort by cgpa asc;
+insert overwrite directory '/user/hive/warehouse/t2.db/student/orderby'
+select cgpa,firstname,college
+from student where college rlike 'J*'
+cluster by cgpa asc;
+insert overwrite directory '/user/hive/warehouse/t2.db/student/orderby'
+select cgpa,firstname,college
+from student where college rlike 'J*'
+cluster by cgpa;
+!hadoop fs -cat /user/hive/warehouse/t2.db/student/orderby/000000_0;
+!hadoop fs -cat /user/hive/warehouse/t2.db/student/orderby/000000_1;
+!hadoop fs -cat /user/hive/warehouse/t2.db/student/orderby/000001_0;
+insert overwrite directory '/user/hive/warehouse/t2.db/student/orderby'
+row format delimeted fields terminated by ','
+select cgpa,firstname,college
+from student where college rlike 'J*'
+cluster by cgpa;
+insert overwrite directory '/user/hive/warehouse/t2.db/student/orderby'
+row format delimited fields terminated by ','
+select cgpa,firstname,college
+from student where college rlike 'J*'
+cluster by cgpa;
+!hadoop fs -cat /user/hive/warehouse/t2.db/student/orderby/000000_0;
+!hadoop fs -cat /user/hive/warehouse/t2.db/student/orderby/000001_0;
+!hadoop fs -cat /user/hive/warehouse/t2.db/student/orderby/000002_0;
+insert overwrite directory '/user/hive/warehouse/t2.db/student/rough.txt'
+;
+insert overwrite directory '/user/hive/warehouse/t2.db/student/rough.txt';
+!hadoop fs -cat /user/hive/warehouse/t2.db/student/rough.txt';
+!hadoop fs -cat /user/hive/warehouse/t2.db/student/rough.txt;
+create table if not exist studentbucket ( 
+firstname string, lastname string, city string, gender city, cgpa float,
+college string)
+partitioned by (first_name string, city string)
+clustred by (cgpa) into 5 buckets
+row format delimited fields terminated by ',';
+create table if not exist studentbucket (
+firstname string, lastname string, city string, gender city, cgpa float,
+college string)
+partitioned by (first_name string, city string)
+clustred by (cgpa) into 5 buckets
+row format delimited fields terminated by ',';
+create table if not exist studentbucket(
+firstname string, lastname string, city string, gender city, cgpa float,
+college string)
+partitioned by (first_name string, city string)
+clustred by (cgpa) into 5 buckets
+row format delimited fields terminated by ',';
+create table if not exists studentbucket(
+firstname string, lastname string, city string, gender city, cgpa float,
+college string)
+partitioned by (first_name string, city string)
+clustred by (cgpa) into 5 buckets
+row format delimited fields terminated by ',';
+create table if not exists studentbucket(
+firstname string, lastname string,city string,gender string,cgpa float,
+college string)
+partitioned by (first_name string, city string)
+clustred by (cgpa) into 5 buckets
+row format delimited fields terminated by ',';
+create table if not exists studentbucket(
+firstname string, lastname string,city string,gender string,cgpa float,
+college string)
+partitioned by (first_name string, city string)
+clustred by (cgpa) into 5 buckets
+row format delimited fields terminated by ',';
+create table if not exists studentbucket(
+firstname string, lastname string,city string,gender string,cgpa float,
+college string)
+partitioned by (first_name string, city string)
+clustered by (cgpa) into 5 buckets
+row format delimited fields terminated by ',';
+create table if not exists studentbucket(
+firstname string, lastname string,city string,gender string,cgpa float,
+college string)
+partitioned by (first_name string, newcity string)
+clustered by (cgpa) into 5 buckets
+row format delimited fields terminated by ',';
+show tables;
+use studentbucket;
+select * from studentbucket;
+show databases;
+select use t2;
+use t2;
+show tables;
+show databases;
+use practice;
+show tables;
+use studentbucket;
+select * from studentbucket;
+show databases;
+show tables;
+show databases;
+select * from student;
+drop table student;
+drop studentbucket;
+drop table studentbucket;
+show databases;
+use t2;
+create table if not exists studentbucket(
+firstname string, lastname string,city string,gender string,cgpa float,
+college string)
+partitioned by (first_name string, newcity string)
+clustered by (cgpa) into 5 buckets
+row format delimited fields teminated by ',';
+create table if not exists studentbucket(
+firstname string, lastname string,city string,gender string,cgpa float,
+college string)
+partitioned by (first_name string, newcity string)
+clustered by (cgpa) into 5 buckets
+row format delimited fields terminated by ',';
+show tables;
+select * from tables;
+show tables;
+select * from studentbucketl
+;
+select * from studentbucket;
+show tables;
+describe studentbucket;
+describe formatted studentbucket;
+set hive.exec.dynamic.partition = true;
+set hive.exec.max.dynamic.partitions = 1000;
+set hive.exec.max.dynamic.partitions.pernode = 500;
+set hive.enforce.bucketing = true;
+insert overwrite table studentbucket
+partition (first_name,newcity)
+select * from student;
+set hive.exec.dynamic.partition.mode=nonstrict;
+show tables;
+select * from student;
+show tables;
+select * from student;
+describe student;
+load data local inpath '/home/shashank/Desktop/Hadoopprac/rough.txt' overwrite into table student;
+select * from student;
+insert overwrite table studentbucket
+partition (first_name,newcity)
+select * from student;
+show databases;
+create database twitter;
+show databases;
+use twitter;
+select * from twitter;
+use twitter;
+add jar /Desktop/Hadoopprac/Twitter sentiment analysis jar file using hadoop/hive-json-serde.jar
+;
+add jar /home/Desktop/Hadoopprac/Twitteranalysis/hive-json-serde.jar
+;
+add jar /home/shashank/Desktop/Hadoopprac/Twitteranalysis/hive-json-serde.jar
+;
+add jar /home/shashank/Desktop/Hadoopprac/Twitteranalysis/hive-json-serde.jar;
+create external table if not exists tweets ( 
+text string,
+entities struct< hashtags:array<struct<text:string>>>,
+user struct<
+screen_name : string,
+friends_count : int,
+followers_count : int,
+statuses_count : int,
+verified: Boolean,
+utc_offset : int,
+time_zone : string>
+)
+row format serde  'com.cloudera.hive.serde.JSONSerDe'
+location ''
+;
+add jar /home/shashank/Desktop/Hadoopprac/Twitteranalysis/hive-json-serde.jar;
+use twitter;
+create external table if not exists tweets ( 
+text string,
+entities struct< hashtags:array<struct<text:string>>>,
+user struct<
+screen_name : string,
+friends_count : int,
+followers_count : int,
+statuses_count : int,
+verified: Boolean,
+utc_offset : int
+,time_zone : string>
+)
+row format serde  'com.cloudera.hive.serde.JSONSerDe'
+location '/home/shashank/Desktop/Hadoopprac/tweetsfile.json';
+CREATE EXTERNAL TABLE IF NOT EXISTS tweets (
+  text STRING,
+  entities STRUCT<
+    hashtags:ARRAY<STRUCT<text:STRING>>>,
+  user STRUCT<
+    screen_name:STRING,
+    friends_count:INT,
+    followers_count:INT,
+    statuses_count:INT,
+    verified:BOOLEAN,
+    utc_offset:INT,
+    time_zone:STRING>
+) 
+ROW FORMAT SERDE 'com.cloudera.hive.serde.JSONSerDe'
+location '/home/shashank/Desktop/Hadoopprac/tweetsfile.json';
+show databases;
+use twitter;
+show tables;
+add jar /home/shashank/Desktop/Hadoopprac/Twitteranalysis/hive-json-serde.jar;
+create external table if not exists tweets ( text string,
+entities STRUCT <
+hashtags:ARRAY<STRUCT<text:STRING>>>,
+user STRUCT<
+screen_name : STRING,
+friends_count:INT,
+statuses_count:INT,
+verified:BOOLEAN,
+utc_offset:INT,
+time_zone:STRING>
+)
+ROW FORMAT SERDE 'com.cloudera.hive.serde.JSONSerDe'
+LOCATION '/home/shashank/Desktop/Hadoopprac/Twitteranalysis/tweetsfile.json';
+show databases;
+use twitter;
+show tables;
+add jar /home/shashank/Desktop/Hadoopprac/Twitteranalysis/hive-json-serde.jar;
+hive -version
+;
+add jar /home/shashank/Desktop/Hadoopprac/Twitteranalysis/hive-json-serde.jar;
+create external table if not exists tweets ( text string,
+entities STRUCT <
+hashtags:ARRAY<STRUCT<text:STRING>>>,
+user struct<
+screen_name : string,
+friends_count : int,
+followers_count : int,
+statuses_count : int,
+verified: Boolean,
+utc_offset : int
+,time_zone : string>
+)
+row format SERDE 'com.cloudera.hive.serde.JSONSerDe'
+location '/home/shashank/Desktop/Hadoopprac/tweets.json';
+ create external table if not exists tweets ( text string,
+    > entities STRUCT <
+    > hashtags:ARRAY<STRUCT<text:STRING>>>,
+;
+create external table if not exists tweets ( text string,
+);
+add jar /apache-hive-2.3.2-bin/lib/hive-json-serde.jar;
+add jar /home/shashank/apache-hive-2.3.2-bin/lib/hive-json-serde.jar;
+create external table if not exists tweets ( text string,
+entities STRUCT <
+hashtags:ARRAY<STRUCT<text:STRING>>>,
+  user STRUCT<
+    screen_name:STRING,
+    friends_count:INT,
+    followers_count:INT,
+    statuses_count:INT,
+    verified:BOOLEAN,
+    utc_offset:INT,
+    time_zone:STRING>
+) 
+ROW FORMAT SERDE 'com.cloudera.hive.serde.JSONSerDe'
+location '/home/shashank/Desktop/Hadoopprac/Twitteranalysis/tweetsfile.json';
+create external table if not exists tweets ( text string,
+entities STRUCT <
+hashtags:ARRAY<STRUCT<text:STRING>>>,
+ 'user' STRUCT<
+    screen_name:STRING,
+    friends_count:INT,
+    followers_count:INT,
+    statuses_count:INT,
+    verified:BOOLEAN,
+utc_offset:INT,
+time_zone:STRING>
+)
+ROW FORMAT SERDE 'com.cloudera.hive.serde.JSONSerDe'
+LOCATION '/home/shashank/Desktop/Hadoopprac/Twitteranalysis/tweetsfile.json';
+create external table if not exists tweets ( text string,
+entities STRUCT <
+hashtags:ARRAY<STRUCT<text:STRING>>>,
+ `user` STRUCT<
+screen_name:STRING,
+friends_count:INT,
+statuses_count:INT,
+verified:BOOLEAN,
+utc_offset:INT,
+time_zone:STRING>
+)
+ROW FORMAT SERDE 'com.cloudera.hive.serde.JSONSerDe'
+LOCATION '/home/shashank/Desktop/Hadoopprac/Twitteranalysis/tweetsfile.json';
+list jar
+;
+exit;
+list jar
+;
+add jar /home/shashank/apache-hive-2.3.2-bin/lib/json-serde-1.3.7.3;
+add jar /home/shashank/apache-hive-2.3.2-bin/lib/json-serde-1.3.7.3.jar;
+create external table if not exists tweets ( text string,
+entities STRUCT <
+hashtags:ARRAY<STRUCT<text:STRING>>>,
+ `user` STRUCT<
+    screen_name:STRING,
+    friends_count:INT,
+    followers_count:INT,
+    statuses_count:INT,
+    verified:BOOLEAN,
+utc_offset:INT,
+time_zone:STRING>
+)
+row format serde 'org.openx.data.jsonserde.JsonSerDe'
+location '/home/shashank/Desktop/Hadoopprac/Twitteranalysis/tweets.json';
+add jar /home/shashank/apache-hive-2.3.2-bin/lib/json-serde-1.3.7.3.jar;
+create external table if not exists tweets ( text string,
+entities STRUCT <
+hashtags:ARRAY<STRUCT<text:STRING>>>,
+ `user` STRUCT<
+    screen_name:STRING,
+friends_count:INT,
+followers_count:INT,
+statuses_count:INT,
+verified:BOOLEAN,
+utc_offset:INT,
+time_zone:STRING>
+)
+row format serde 'org.openx.data.jsonserde.JsonSerDe'
+location '/home/shashank/Desktop/Hadoopprac/Twitteranalysis/tweets.json';
+exit;
+list jar;
+add jar /home/shashank/apache-hive-2.3.2-bin/lib/json-serde-1.3.7.3.jar;
+create external table if not exists tweets ( text string,
+entities STRUCT <
+hashtags:ARRAY<STRUCT<text:STRING>>>,
+`user` STRUCT<
+screen_name:STRING,
+friends_count:INT,
+followers_count:INT,
+statuses_count:INT,
+verified:BOOLEAN,
+utc_offset:INT,
+time_zone:STRING>
+)
+row format serde 'org.openx.data.jsonserde.JsonSerDe'
+location '/home/shashank/Desktop/Hadoopprac/Twitteranalysis/tweets.json';
+exit;
+list jar;
+add jar /home/shashank/apache-hive-2.3.2-bin/lib/hive-json-serde.jar;
+create external table if not exists tweets ( text string,
+entities STRUCT <
+hashtags:ARRAY<STRUCT<text:STRING>>>,
+`user` STRUCT<
+screen_name:STRING,
+friends_count:INT,
+followers_count:INT,
+statuses_count:INT,
+verified:BOOLEAN,
+utc_offset:INT,
+time_zone:STRING>
+)
+row format serde 'org.apache.hadoop.hive.contrib.serde2.JsonSerde'
+location '/home/shashank/Desktop/Hadoopprac/Twitteranalysis/tweets.json';
+!hdfs dfs -copyFromLocal  '/home/shashank/Desktop/Hadoopprac/Twitteranalysis/tweets.json' '/user/hive/warehouse/twitter.db/tweets.json';
+!hdfs dfs -copyFromLocal  '/home/shashank/Desktop/Hadoopprac/Twitteranalysis/tweets.json' '/user/hive/warehouse/twitter.db';
+!hdfs dfs -copyFromLocal  /home/shashank/Desktop/Hadoopprac/Twitteranalysis/tweets.json /user/hive/warehouse/twitter.db/tweets.json;
+create external table if not exists tweets ( text string,
+entities STRUCT <
+hashtags:ARRAY<STRUCT<text:STRING>>>,
+`user` STRUCT<
+screen_name:STRING,
+friends_count:INT,
+followers_count:INT,
+statuses_count:INT,
+verified:BOOLEAN,
+utc_offset:INT,
+time_zone:STRING>
+)
+row format serde 'org.openx.data.jsonserde.JsonSerDe'
+location '/user/hive/warehouse/twitter.db/tweets.json';
+list jar;
+exit;
+add jar /home/shashank/apache-hive-2.3.2-bin/lib/hive-serde-2.3.2.jar;
+create external table if not exists tweets ( text string,
+entities STRUCT <
+hashtags:ARRAY<STRUCT<text:STRING>>>,
+`user` STRUCT<
+screen_name:STRING,
+friends_count:INT,
+followers_count:INT,
+statuses_count:INT,
+verified:BOOLEAN,
+utc_offset:INT,
+time_zone:STRING>
+)
+row format serde 'org.apache.hadoop.hive.contrib.serde2.JsonSerde'
+location '/home/shashank/Desktop/Hadoopprac/Twitteranalysis/tweets.json';
+list jar;
+exit;
+add jar file:///home/shashank/apache-hive-2.3.2-bin/lib/hive-json-serde.jar;
+create external table if not exists tweets ( text string,
+entities STRUCT <
+hashtags:ARRAY<STRUCT<text:STRING>>>,
+`user` STRUCT<
+screen_name:STRING,
+friends_count:INT,
+followers_count:INT,
+statuses_count:INT,
+verified:BOOLEAN,
+utc_offset:INT,
+time_zone:STRING>
+)
+row format SERDE 'org.apache.hadoop.hive.contrib.serde2.JsonSerde'
+location '/user/hive/warehouse/twitter.db/tweets.json';
+exit;
+add jar /home/shashank/apache-hive-2.3.2-bin/lib/hive-json-serde-0.1.jar;
+create external table if not exists tweets ( text string,
+entities STRUCT <
+hashtags:ARRAY<STRUCT<text:STRING>>>,
+`user` STRUCT<
+screen_name:STRING,
+friends_count:INT,
+followers_count:INT,
+statuses_count:INT,
+verified:BOOLEAN,
+utc_offset:INT,
+time_zone:STRING>
+)
+row format SERDE 'org.apache.hadoop.hive.contrib.serde2.JsonSerde'
+location '/user/hive/warehouse/twitter.db/tweets.json';
+list jar;
+exit;
+add jar /home/shashank/apache-hive-2.3.2-bin/lib/hive-json-serde-1.3.7.3.jar;
+add jar /home/shashank/apache-hive-2.3.2-bin/lib/hive-serde-1.3.7.3.jar;
+add jar /home/shashank/apache-hive-2.3.2-bin/lib/json-serde-1.3.7.3.jar;
+create external table if not exists tweets ( text string,
+entities STRUCT <
+hashtags:ARRAY<STRUCT<text:STRING>>>,
+`user` STRUCT<
+screen_name:STRING,
+friends_count:INT,
+followers_count:INT,
+statuses_count:INT,
+verified:BOOLEAN,
+utc_offset:INT,
+time_zone:STRING>
+)
+row format SERDE 'org.openx.data.jsonserde.JsonSerDe'
+location '/user/hive/warehouse/twitter.db/tweets.json';
+list jar;
+exit;
+create external table if not exists tweets ( text string,
+entities STRUCT <
+hashtags:ARRAY<STRUCT<text:STRING>>>,
+`user` STRUCT<
+screen_name:STRING,
+friends_count:INT,
+followers_count:INT,
+statuses_count:INT,
+verified:BOOLEAN,
+utc_offset:INT,
+time_zone:STRING>
+)
+row format SERDE 'org.openx.data.jsonserde.JsonSerDe'
+location '/user/hive/warehouse/twitter.db/tweets.json';
+exit;
+show databases;
+use twitter;
+show tables;
+add jar /home/shashank/apache-hive-2.3.2-bin/lib/json-serde-1.3.7.3.jar;
+create external table if not exists tweets ( text string,
+entities STRUCT <
+hashtags:ARRAY<STRUCT<text:STRING>>>,
+`user` STRUCT<
+screen_name:STRING,
+friends_count:INT,
+followers_count:INT,
+statuses_count:INT,
+verified:BOOLEAN,
+utc_offset:INT,
+time_zone:STRING>
+)
+row format SERDE 'org.openx.data.jsonserde.JsonSerDe'
+location '/user/hive/warehouse/twitter.db/tweets.json';
+add jar /home/shashank/apache-hive-2.3.2-bin/lib/json-serde-1.3.7.3.jar;
+create external table if not exists tweets ( text string,
+entities STRUCT <
+hashtags:ARRAY<STRUCT<text:STRING>>>,
+`user` STRUCT<
+screen_name:STRING,
+friends_count:INT,
+followers_count:INT,
+statuses_count:INT,
+verified:BOOLEAN,
+utc_offset:INT,
+time_zone:STRING>
+)
+ROW FORMAT SERDE 'org.apache.hive.hcatalog.data.JsonSerDe'
+location 'hdfs://localhost:9000/user/hive/warehouse/twitter.db/tweets.json';
